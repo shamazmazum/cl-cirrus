@@ -1,0 +1,16 @@
+freebsd_instance:
+  image_family: freebsd-12-1
+
+task:
+  env:
+    matrix:
+      - LISP: sbcl
+      - LISP: ccl
+      - LISP: clisp
+  preinstall_script:
+    - pkg upgrade -y
+    - pkg install -y curl
+  install_script:
+    - sh install.sh
+  script:
+    - cl -l flexi-streams -e '(progn (print "Hello World") (uiop:quit))'
